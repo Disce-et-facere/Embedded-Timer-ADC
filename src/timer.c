@@ -6,8 +6,7 @@
 
 
 ISR(TIMER1_COMPA_vect) {
-setTimerOverflow();
-    timer1_overflow_count++;
+    setTimerOverflow();
 }
 
 void initTimer1(){ // timer set to interupt on 1ms.
@@ -18,9 +17,8 @@ void initTimer1(){ // timer set to interupt on 1ms.
 }
 
 void setTimerOverflow(){
-
-static timer1_overflow_count = 0;
-
+    static timer1_overflow_count = 0;
+    timer1_overflow_count++;
 }
 
 void millis(uint16_t ms){
