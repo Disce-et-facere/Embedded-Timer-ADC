@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"pinsetup.h": "c",
+			"readwritepin.h": "c",
+			"macros.h": "c",
+			"pinfunctions.h": "c",
+			"interupt.h": "c",
+			"io.h": "c",
+			"interrupt.h": "c",
+			"timer.h": "c"
+		}
+	}
+}

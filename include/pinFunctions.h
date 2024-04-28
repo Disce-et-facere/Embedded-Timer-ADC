@@ -1,12 +1,12 @@
 #ifndef PINFUNCTIONS_H
 #define PINFUNCTIONS_H
 
-#include "avr/io.h"
+#include <avr/io.h>
+#include "bitManipulation.h"
 
-void pinInit();
-uint8_t digitalRead(uint8_t pinReg, uint8_t pin);
-void togglePinBit(volatile uint8_t *portReg, uint8_t pin);
-void setPinBit(volatile uint8_t *portReg, uint8_t pin);
-void clearPinBit(volatile uint8_t *portReg, uint8_t pin);
+void toggle_led();
+void led_off();
+void led_on();
+void init_pins();
 
-#endif  // PINFUNCTIONS_H
+#endif // PINFUNCTIONS_H

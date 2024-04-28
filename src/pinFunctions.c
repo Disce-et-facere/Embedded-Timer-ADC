@@ -1,38 +1,24 @@
-#include "avr/io.h"
-#include "macros.h"
+#include "pinFunctions.h"
 
-void pinInit(){
+void toggle_led(){
+    toggle_register_bit(&LED_PORT, LED_PIN);
+}
+
+void led_off(){
+    clear_register_bit(&LED_PORT, LED_PIN);
+}
+
+void led_on(){
+    set_register_bit(&LED_PORT, LED_PIN);
+}
+
+void init_pins(){
     // pin 3(PD3) OUTPUT LED 
-    DDRD |= (1 << PD3); 
+    set_register_bit(&LED_DDR, LED_PIN);
     // Pin A0(PC0) INPUT ADC
-    DDRC &= ~(1 << PC0);
-}
-
-void ADCInit() {
-    // Set reference voltage to AVCC with external capacitor at AREF pin
-    ADMUX |= (1 << REFS0);
-    // Set ADC prescaler to 128 (ADC clock = 16MHz / 128 = 125kHz)
-    ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
-    // Enable ADC
-    ADCSRA |= (1 << ADEN);
-}
-
-uint8_t digitalRead(uint8_t pinReg, uint8_t pin){
-    return (pinReg & (1 << pin)) ? 1 : 0; // checks (AND) if bit on pin register is set to either 1 or 0
-}
-
-uint16_t analogRead(){
-    return ADC;
-}
-
-void togglePinBit(volatile uint8_t *portReg, uint8_t pin){
-    *portReg ^= (1 << pin); // toggle bit (XOR) on port register
-}
-
-void setPinBit(volatile uint8_t *portReg, uint8_t pin){
-    *portReg |= (1 << pin); // set bit (OR) on port register
-}
-
-void clearPinBit(volatile uint8_t *portReg, uint8_t pin){
-    *portReg &= ~(1 << pin); // clear bit (NOT) on port register
-}
+    clear_register_bit(&ADC_DDR, ADC_PIN);
+    // Pin 5(PD5) INPUT
+    //clear_register_bit(&BUTTON_PIN_PORT, BUTTON_PIN);
+    // Pin 8(PB0) INPUT
+    set_register_bit(&BUTTON_PIN8_PORT, BUTTON_PIN);
+}   // Pin 5 doesnt work for input capture!!!

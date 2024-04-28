@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "pinfunctions.h": "c",
+        "timer.h": "c",
+        "io.h": "c",
+        "macros.h": "c",
+        "stdbool.h": "c",
+        "serialcommunication.h": "c",
+        "bitmanipulation.h": "c",
+        "adc.h": "c"
+    },
+    "cmake.configureOnOpen": false
+}
