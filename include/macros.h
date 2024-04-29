@@ -23,10 +23,8 @@
 #define HELP 9
 #define INVALID_COMMAND 10
 #define NUMBER_OF_COMMANDS 10
-#define RAMP_VALUE1 150
-//#define RAMP_VALUE1 170
-//#define RAMP_VALUE1 510
-//#define RAMP_VALUE1 850
+#define MAX_FREQUENCE_VALUE 5000
+#define MIN_FREQUENCE_VALUE 200
 
 // PINS
 #define LED_PIN PD3
@@ -73,6 +71,7 @@
 #define false 0
 #define true 1
 #define MAX_PWM_VALUE 255
+#define MIN_PWM_VALUE 0
 
 
 // TIMER 1

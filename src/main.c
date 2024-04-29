@@ -55,7 +55,7 @@ void set_led_power_and_frequency(NumericalCommandValues *numValues, bool *is_tim
     uint16_t frequence = numValues->frequence;
     static uint16_t previous_frequence;
     static uint8_t is_led_on = false;
-    if(power <= 255 && power >= 0 && frequence >= 200 && frequence <= 5000){
+    if(power <= MAX_PWM_VALUE && power >= MIN_PWM_VALUE && frequence >= MIN_FREQUENCE_VALUE && frequence <= MAX_FREQUENCE_VALUE){
         if(is_timer1_interrupt_flagged()){
             reset_timer1_flag();
             if(!(frequence == previous_frequence)){
