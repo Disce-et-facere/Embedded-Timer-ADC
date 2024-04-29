@@ -20,5 +20,5 @@ void init_pins(){
     // Pin 5(PD5) INPUT
     //clear_register_bit(&BUTTON_PIN_PORT, BUTTON_PIN);
     // Pin 8(PB0) INPUT
-    set_register_bit(&BUTTON_PIN8_PORT, BUTTON_PIN);
+    set_register_bit(&BUTTON_PIN8_PORT, BUTTON_PIN8);
 }   // Pin 5 doesnt work for input capture!!!

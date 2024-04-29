@@ -162,7 +162,7 @@ int main(void) {
                     is_led_power_freq_enabled = false;
                     break;
                 case BUTTON_COUNTER_ON:
-                    start_timer1(BTN_COUNT_MODE, 1000);
+                    start_timer1(BTN_COUNT_MODE, S_TO_MS);
                     is_button_counter_enabled = true;
                     break;
                 case BUTTON_COUNTER_OFF:

@@ -17,6 +17,8 @@ void reset_timer1_flag();
 uint8_t get_button_count();
 void reset_button_count();
 void set_timer1_CTC_mode(uint8_t mode);
+void disable_input_capture_interrupt();
+void enable_input_capture_interrupt();
 void set_timer1_compare_value(uint16_t milliseconds, uint16_t prescaler);
 void start_timer1(uint8_t mode, uint16_t milliseconds);
 void stop_timer1();

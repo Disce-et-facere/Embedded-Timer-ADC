@@ -9,7 +9,6 @@ volatile uint8_t is_btn_count_mode_enabled = false;
 volatile uint8_t tick1 = 0;
 volatile uint8_t tick2 = 0;
 volatile uint16_t buttonPressCount = 0;
-volatile uint8_t buttonPressed = 0;
 
 ISR(TIMER1_COMPA_vect) {
     if(is_long_mode_enabled){
@@ -23,7 +22,7 @@ ISR(TIMER1_COMPA_vect) {
         tick1++;
         tick2++;
     }else if(is_btn_count_mode_enabled){
-        buttonPressed = false;
+        enable_input_capture_interrupt();
         timer1_flag = TIMER_FLAG_SET;
     }else{
         timer1_flag = TIMER_FLAG_SET;
@@ -31,10 +30,9 @@ ISR(TIMER1_COMPA_vect) {
 }
 
 ISR(TIMER1_CAPT_vect) {
-    if (!buttonPressed) {
-        buttonPressCount = ICR1;
-        buttonPressed = true;
-    }
+    //serialWriteLine("tryck");
+    buttonPressCount++;
+    disable_input_capture_interrupt();
 }
 
 uint8_t get_timer1_tick1(){
@@ -68,7 +66,6 @@ uint8_t get_button_count(){
 
 void reset_button_count(){
     buttonPressCount = 0;
-    buttonPressed = false;
     is_btn_count_mode_enabled = false;
 }
 
@@ -84,6 +81,14 @@ void set_timer1_CTC_mode(uint8_t mode){
         set_register_bit(&TIMER1_COUNTER1_INTERRUPT_MASK_REGISTER_1, TIMER1_COUNTER1_INPUT_CAPTURE_INTERRUPT_ENABLE);
         clear_register_bit(&TIMER1_COUNTER1_CONTROL_REGISTER_B, INPUT_CAPTURE_EDGE_BIT);
     }
+}
+
+void enable_input_capture_interrupt(){
+    set_register_bit(&TIMER1_COUNTER1_INTERRUPT_MASK_REGISTER_1, TIMER1_COUNTER1_INPUT_CAPTURE_INTERRUPT_ENABLE);
+}
+
+void disable_input_capture_interrupt(){
+    clear_register_bit(&TIMER1_COUNTER1_INTERRUPT_MASK_REGISTER_1, TIMER1_COUNTER1_INPUT_CAPTURE_INTERRUPT_ENABLE);
 }
 
 void set_timer1_prescaler(uint16_t prescaler){
