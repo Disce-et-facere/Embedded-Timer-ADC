@@ -48,7 +48,7 @@ void set_led_interval_with_adc(){
 
 void set_led_power_and_frequency(NumericalCommandValues *numValues, bool *is_timer_started, bool *is_led_power_freq_enabled){
     if(!(*is_timer_started)){
-        start_timer1(CTC_MODE, 200);
+        start_timer1(CTC_MODE, numValues->frequence);
         *is_timer_started = true;
     }
     uint8_t power = numValues->power;
@@ -68,9 +68,10 @@ void set_led_power_and_frequency(NumericalCommandValues *numValues, bool *is_tim
             }else{
                 start_timer2_PWM(NORMAL_MODE, power);
                 is_led_on = true;
-            }   
+            }  
+            previous_frequence = frequence; 
         }
-        previous_frequence = frequence;
+        
     }else{
         *is_led_power_freq_enabled = false;
         serialWriteLine("Values are too high or too low, try again!");
@@ -95,7 +96,7 @@ void displayCommands(){
         "led pow freq off",
         "button counter on",
         "button counter off",
-        "led ramp time \"150, 170, 510, 850\""
+        "led ramp time 200 - 1500"
     }; 
     for (uint8_t index = 0; index < NUMBER_OF_COMMANDS; index++) {
         serialWriteLine(Commands[index]);
@@ -170,7 +171,7 @@ int main(void) {
                     is_button_counter_enabled = false;
                     break;
                 case LED_RAMP_TIME:
-                    if(numValues.power >= 200 && numValues.power <= 1500){
+                    if(numValues.power >= MIN_RAMP_TIME && numValues.power <= MAX_RAMP_TIME){
                        start_timer2_PWM(RAMP_MODE, numValues.power); 
                     }else{
                         serialWriteLine("Value too high to low, try again!");
@@ -194,9 +195,7 @@ int main(void) {
             set_led_power_and_frequency(&numValues, &is_timer1_started, &is_led_power_freq_enabled);
         }else if(is_button_counter_enabled){
             print_button_count();
-        }/*else if(is_ramp_led_enabled){
-            ramp_led(&numValues, &is_timer1_started);
-        }*/
+        }
     }
     return 0;
 }

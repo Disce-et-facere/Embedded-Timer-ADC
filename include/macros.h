@@ -9,6 +9,8 @@
 #define MIN_INTERVAL_VALUE 0
 #define MIN_VOLTAGE_VALUE 0.0
 #define MAX_VOLTAGE_VALUE 5.0
+#define MIN_RAMP_TIME 200
+#define MAX_RAMP_TIME 1500
 #define LED_BLINK_ON 0
 #define LED_BLINK_OFF 1
 #define LED_ADC_ON 2
